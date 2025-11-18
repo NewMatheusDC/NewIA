@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAZ Bot - Legal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5865F2;
+            --primary-dark: #4752C4;
+            --primary-light: #7983F5;
+            --secondary: #57F287;
+            --dark: #2C2F33;
+            --darker: #23272A;
+            --darkest: #1A1D21;
+            --light: #FFFFFF;
+            --gray: #99AAB5;
+            --gray-dark: #4F545C;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.3);
+            --gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--darkest);
+            color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            font-weight: 400;
+        }
+        
+        .noise::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        header {
+            background: var(--gradient);
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+        }
+        
+        .header-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            animation: rotate 60s linear infinite;
+        }
+        
+        .brand {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .brand-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .brand-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--light);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--light) 0%, rgba(255,255,255,0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: slideUp 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: slideUp 1s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s forwards;
+        }
+        
+        .sidebar {
+            position: sticky;
+            top: 40px;
+            background: var(--dark);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-dark);
+        }
+        
+        .nav-title {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .nav-items {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: 8px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            color: var(--gray);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            transition: var(--transition);
+            opacity: 0.1;
+        }
+        
+        .nav-link:hover {
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-link:hover::before {
+            left: 0;
+        }
+        
+        .nav-link.active {
+            color: var(--light);
+            background: rgba(88, 101, 242, 0.1);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .nav-link.active::before {
+            left: 0;
+        }
+        
+        .content {
+            min-height: 100vh;
+        }
+        
+        .section {
+            background: var(--dark);
+            border-radius: 20px;
+            padding: 48px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-dark);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+        
+        h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--light);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+        
+        .section-intro {
+            font-size: 1.125rem;
+            color: var(--gray);
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 40px 0 16px;
+            color: var(--light);
+        }
+        
+        p {
+            margin-bottom: 20px;
+            color: var(--gray);
+            font-size: 1.0625rem;
+        }
+        
+        ul {
+            margin-left: 24px;
+            margin-bottom: 24px;
+        }
+        
+        li {
+            margin-bottom: 12px;
+            color: var(--gray);
+            position: relative;
+            padding-left: 8px;
+        }
+        
+        li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: -16px;
+        }
+        
+        .highlight-box {
+            background: rgba(88, 101, 242, 0.05);
+            border: 1px solid rgba(88, 101, 242, 0.2);
+            border-radius: 16px;
+            padding: 28px;
+            margin: 32px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+        }
+        
+        .highlight-title {
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        footer {
+            background: var(--darker);
+            padding: 60px 0;
+            margin-top: 80px;
+            border-top: 1px solid var(--gray-dark);
+        }
+        
+        .footer-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .update-notice {
+            background: rgba(87, 242, 135, 0.05);
+            border: 1px solid rgba(87, 242, 135, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 32px;
+        }
+        
+        .update-title {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @media (max-width: 968px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .sidebar {
+                position: static;
+                order: 2;
+            }
+            
+            .content {
+                order: 1;
+            }
+            
+            h1 {
+                font-size: 2.75rem;
+            }
+            
+            .section {
+                padding: 32px;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            header {
+                padding: 80px 0 60px;
+            }
+            
+            h1 {
+                font-size: 2.25rem;
+            }
+            
+            .subtitle {
+                font-size: 1.125rem;
+            }
+            
+            .section {
+                padding: 24px;
+            }
+            
+            h2 {
+                font-size: 1.875rem;
+            }
+            
+            h3 {
+                font-size: 1.375rem;
+            }
+        }
+        
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="noise">
+    <div class="scroll-progress"></div>
+    
+    <header>
+        <div class="header-bg"></div>
+        <div class="container">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5V7H9V5.5L3 7V9L9 10.5V12L5 13V15L9 13.5V15H15V13.5L21 15V13L15 11.5V10.5L21 9Z"/>
+                    </svg>
+                </div>
+                <h1>IAZ Bot</h1>
+                <p class="subtitle">Documentação Legal e Termos de Utilização</p>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container" style="margin-top: -40px; position: relative; z-index: 10;">
+        <div class="grid">
+            <nav class="sidebar">
+                <div class="nav-title">Navegação</div>
+                <ul class="nav-items">
+                    <li class="nav-item">
+                        <a href="#tos" class="nav-link active">Termos de Serviço</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#privacy" class="nav-link">Política de Privacidade</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#usage" class="nav-link">Uso Aceitável</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#rights" class="nav-link">Direitos e Limitações</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#updates" class="nav-link">Atualizações</a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="content">
+                <section id="tos" class="section">
+                    <h2>Termos de Serviço</h2>
+                    <p class="section-intro">Estes termos estabelecem as condições para utilização do IAZ Bot em servidores Discord. A interação com nosso serviço implica aceitação integral destas condições.</p>
+                    
+                    <h3>Aceitação dos Termos</h3>
+                    <p>Ao integrar o IAZ Bot ao seu servidor Discord ou estabelecer qualquer forma de interação com nossa plataforma, você declara ter lido, compreendido e concordado em vincular-se integralmente a estes Termos de Serviço. A não concordância com qualquer disposição aqui contida implica na imediata descontinuação do uso de nossos serviços.</p>
+                    
+                    <h3>Funcionalidades da Plataforma</h3>
+                    <p>O IAZ Bot constitui uma solução avançada de assistência conversacional com integração de inteligência artificial, oferecendo:</p>
+                    <ul>
+                        <li>Processamento contextualizado de linguagem natural</li>
+                        <li>Ferramentas administrativas para gestão personalizada em servidores</li>
+                        <li>Capacidade de geração de conteúdo sob demanda</li>
+                        <li>Armazenamento temporário de histórico conversacional para otimização da experiência do usuário</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Nota de Desenvolvimento</div>
+                        <p>Nossa plataforma encontra-se em constante evolução, com novas capacidades sendo incorporadas periodicamente para ampliar seu potencial e eficiência.</p>
+                    </div>
+                    
+                    <h3>Responsabilidades do Utilizador</h3>
+                    <p>Como utilizador do IAZ Bot, você assume o compromisso de:</p>
+                    <ul>
+                        <li>Assumir total responsabilidade pelo conteúdo transmitido através de nossa plataforma</li>
+                        <li>Abster-se de utilizar nossos serviços para atividades ilícitas, ofensivas ou mal-intencionadas</li>
+                        <li>Não tentar explorar vulnerabilidades ou interferir na integridade operacional do sistema</li>
+                        <li>Respeitar integralmente as diretrizes comunitárias estabelecidas pela plataforma Discord</li>
+                        <li>Não disseminar conteúdo protegido por direitos autorais sem a devida autorização legal</li>
+                    </ul>
+                </section>
+                
+                <section id="privacy" class="section">
+                    <h2>Política de Privacidade</h2>
+                    <p class="section-intro">A proteção de seus dados constitui prioridade fundamental em nossa operação. Esta política detalha nossa abordagem quanto à coleta, utilização e proteção de informações.</p>
+                    
+                    <h3>Coleta de Informações</h3>
+                    <p>Para viabilizar a prestação de nossos serviços, o IAZ Bot pode coletar e armazenar temporariamente:</p>
+                    <ul>
+                        <li>Identificadores únicos de usuários e servidores Discord</li>
+                        <li>Conteúdo das interações mantidas com nossa plataforma</li>
+                        <li>Configurações específicas de canais e preferências de servidor</li>
+                        <li>Metadados relacionados aos padrões de interação (horários, frequência de utilização)</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Proteção de Dados Sensíveis</div>
+                        <p>Nossa operação não envolve a coleta de informações pessoais sensíveis, incluindo dados financeiros, documentos de identificação ou informações médicas.</p>
+                    </div>
+                    
+                    <h3>Utilização das Informações</h3>
+                    <p>As informações coletadas são utilizadas exclusivamente para:</p>
+                    <ul>
+                        <li>Fornecer respostas contextualizadas e personalizadas</li>
+                        <li>Otimizar a funcionalidade e estabilidade da plataforma</li>
+                        <li>Implementar configurações administrativas solicitadas pelos usuários</li>
+                        <li>Analisar padrões de utilização para contínuo aprimoramento de serviços</li>
+                    </ul>
+                    
+                    <h3>Armazenamento e Segurança</h3>
+                    <p>Implementamos protocolos avançados para garantir a proteção de seus dados:</p>
+                    <ul>
+                        <li>As interações conversacionais são armazenadas localmente com ciclos regulares de exclusão e sobrescrição</li>
+                        <li>Adotamos medidas de segurança alinhadas com os padrões mais rigorosos do setor</li>
+                        <li>Não compartilhamos dados com terceiros, exceto sob exigência legal expressa</li>
+                        <li>A retenção de informações limita-se ao período estritamente necessário para prestação dos serviços</li>
+                    </ul>
+                </section>
+                
+                <section id="usage" class="section">
+                    <h2>Uso Aceitável</h2>
+                    <p class="section-intro">Estabelecemos diretrizes claras para garantir que nossa plataforma seja utilizada de maneira construtiva e responsável por todos os usuários.</p>
+                    
+                    <h3>Conduta Esperada</h3>
+                    <p>Os usuários devem manter conduta alinhada com os princípios de respeito mútuo e legalidade, abstendo-se de:</p>
+                    <ul>
+                        <li>Gerar ou disseminar conteúdo difamatório, calunioso ou injurioso</li>
+                        <li>Promover atividades que violem direitos de propriedade intelectual</li>
+                        <li>Utilizar a plataforma para assédio, discriminação ou perseguição</li>
+                        <li>Realizar tentativas de engenharia reversa ou modificação não autorizada do código</li>
+                    </ul>
+                    
+                    <h3>Conformidade Legal</h3>
+                    <p>O uso do IAZ Bot deve estar em estrita conformidade com todas as leis e regulamentos aplicáveis, incluindo:</p>
+                    <ul>
+                        <li>Leis de proteção de dados e privacidade</li>
+                        <li>Legislação sobre direitos autorais e propriedade intelectual</li>
+                        <li>Regulamentações específicas de comunicação digital</li>
+                        <li>Diretrizes estabelecidas pela plataforma Discord</li>
+                    </ul>
+                </section>
+                
+                <section id="rights" class="section">
+                    <h2>Direitos e Limitações</h2>
+                    <p class="section-intro">Estabelecemos os direitos e responsabilidades de ambas as partes para garantir uma relação transparente e equilibrada.</p>
+                    
+                    <h3>Direitos do Utilizador</h3>
+                    <p>Como utilizador de nossa plataforma, você possui o direito de:</p>
+                    <ul>
+                        <li>Solicitar a exclusão de dados associados à sua conta ou servidor</li>
+                        <li>Revogar permissões de acesso a qualquer momento</li>
+                        <li>Utilizar mecanismos de restrição para limitar a coleta de informações</li>
+                        <li>Receber esclarecimentos sobre o tratamento de seus dados</li>
+                    </ul>
+                    
+                    <h3>Limitações de Responsabilidade</h3>
+                    <p>Embora nos empenhemos para manter a excelência operacional, é importante reconhecer que:</p>
+                    <ul>
+                        <li>Podem ocorrer interrupções temporárias para manutenção ou devido a fatores técnicos</li>
+                        <li>Não nos responsabilizamos por danos indiretos decorrentes da utilização</li>
+                        <li>As respostas geradas por IA podem ocasionalmente conter imprecisões</li>
+                        <li>Reservamo-nos o direito de recusar serviço baseado em violação destes termos</li>
+                    </ul>
+                </section>
+                
+                <section id="updates" class="section">
+                    <h2>Atualizações e Contato</h2>
+                    <p class="section-intro">Mantermos nossos termos e políticas atualizados é essencial para refletir a evolução de nossos serviços e as mudanças no ambiente regulatório.</p>
+                    
+                    <h3>Revisões dos Termos</h3>
+                    <p>Estes documentos podem ser periodicamente revisados para incorporar:</p>
+                    <ul>
+                        <li>Novas funcionalidades e capacidades da plataforma</li>
+                        <li>Mudanças no ambiente legal e regulatório</li>
+                        <li>Melhorias em nossos processos operacionais</li>
+                        <li>Feedback recebido de nossa comunidade de usuários</li>
+                    </ul>
+                    
+                    <h3>Canais de Comunicação</h3>
+                    <p>Para questões relacionadas a estes termos, políticas de privacidade ou tratamento de dados, disponibilizamos:</p>
+                    <ul>
+                        <li>Servidor oficial de suporte no Discord</li>
+                        <li>Documentação técnica atualizada</li>
+                        <li>Mecanismos para solicitação de esclarecimentos específicos</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>IAZ Bot &copy; 2023. Desenvolvido com rigor técnico e compromisso com a excelência.</p>
+                <div class="update-notice">
+                    <div class="update-title">Última Revisão</div>
+                    <p>15 de Novembro de 2023 - Estes documentos encontram-se em contínuo aprimoramento. Recomendamos consulta periódica para manter-se atualizado.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const scrollProgress = document.querySelector('.scroll-progress');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            function updateActiveNav() {
+                let current = '';
+                const scrollPos = window.scrollY + 100;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            function updateScrollProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrollTop = window.scrollY;
+                const progress = (scrollTop / documentHeight) * 100;
+                scrollProgress.style.width = progress + '%';
+            }
+            
+            window.addEventListener('scroll', () => {
+                updateActiveNav();
+                updateScrollProgress();
+            });
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    const offsetTop = targetSection.offsetTop - 80;
+                    
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            updateActiveNav();
+            updateScrollProgress();
+        });
+    </script>
+</body>
+  </html>
